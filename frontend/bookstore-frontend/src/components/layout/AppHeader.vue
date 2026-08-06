@@ -217,6 +217,34 @@ const menuOpen = ref(false);
   display: none;
 }
 
+@media (min-width: 1800px) {
+  .header-inner {
+    min-height: 92px;
+  }
+
+  .logo {
+    font-size: 29px;
+  }
+
+  .navigation {
+    gap: 46px;
+  }
+
+  .navigation a {
+    font-size: 16px;
+    padding: 35px 0;
+  }
+
+  .header-actions {
+    gap: 20px;
+  }
+
+  .action-button {
+    width: 44px;
+    height: 44px;
+  }
+}
+
 @media (max-width: 900px) {
   .header-inner {
     grid-template-columns: 1fr auto;

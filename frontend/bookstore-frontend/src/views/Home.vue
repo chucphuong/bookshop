@@ -1,5 +1,41 @@
 <script setup>
 import { Search, BookOpen, Tag, ShieldCheck } from "lucide-vue-next";
+
+import CategoryCard from "../components/cards/CategoryCard.vue";
+
+// import vanHocImage from "../assets/images/categories/van-hoc.jpg";
+// import kinhTeImage from "../assets/images/categories/kinh-te.jpg";
+// import kyNangImage from "../assets/images/categories/ky-nang.jpg";
+// import thieuNhiImage from "../assets/images/categories/thieu-nhi.jpg";
+// import congNgheImage from "../assets/images/categories/cong-nghe.jpg";
+// import tamLyImage from "../assets/images/categories/tam-ly.jpg";
+
+const categories = [
+  {
+    title: "Văn học",
+    image: "https://images.unsplash.com/photo-1512820790803-83ca734da794",
+  },
+  {
+    title: "Kinh tế",
+    image: "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40",
+  },
+  {
+    title: "Kỹ năng sống",
+    image: "https://images.unsplash.com/photo-1499750310107-5fef28a66643",
+  },
+  {
+    title: "Thiếu nhi",
+    image: "https://images.unsplash.com/photo-1512820790803-83ca734da794",
+  },
+  {
+    title: "Công nghệ",
+    image: "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40",
+  },
+  {
+    title: "Tâm lý",
+    image: "https://images.unsplash.com/photo-1512820790803-83ca734da794",
+  },
+];
 </script>
 
 <template>
@@ -77,6 +113,36 @@ import { Search, BookOpen, Tag, ShieldCheck } from "lucide-vue-next";
         </div>
       </div>
     </section>
+    <!--  -->
+    <section id="categories" class="category-section section">
+      <div class="container">
+        <div class="section-heading">
+          <div>
+            <span class="section-label">Danh mục nổi bật</span>
+
+            <h2>Khám phá theo danh mục</h2>
+
+            <p>
+              Dễ dàng tìm thấy những cuốn sách phù hợp với sở thích và nhu cầu
+              của bạn.
+            </p>
+          </div>
+
+          <RouterLink to="/books" class="view-all-link">
+            Xem tất cả
+          </RouterLink>
+        </div>
+
+        <div class="category-grid">
+          <CategoryCard
+            v-for="category in categories"
+            :key="category.title"
+            :title="category.title"
+            :image="category.image"
+          />
+        </div>
+      </div>
+    </section>
   </div>
 </template>
 
@@ -91,11 +157,11 @@ import { Search, BookOpen, Tag, ShieldCheck } from "lucide-vue-next";
 .hero {
   min-height: 620px;
   display: grid;
-  grid-template-columns: 0.9fr 1.1fr;
+  grid-template-columns: minmax(480px, 0.9fr) minmax(600px, 1.1fr);
   align-items: center;
-  gap: 70px;
-  padding-top: 55px;
-  padding-bottom: 70px;
+  gap: clamp(60px, 6vw, 130px);
+  padding-top: 70px;
+  padding-bottom: 90px;
 }
 
 .hero-content {
@@ -328,6 +394,55 @@ import { Search, BookOpen, Tag, ShieldCheck } from "lucide-vue-next";
   }
 }
 
+@media (min-width: 1800px) {
+  .hero {
+    min-height: 820px;
+    grid-template-columns: 0.85fr 1.15fr;
+    gap: 140px;
+    padding-top: 90px;
+    padding-bottom: 110px;
+  }
+
+  .hero-content h1 {
+    max-width: 700px;
+    font-size: 76px;
+  }
+
+  .hero-description {
+    max-width: 650px;
+    font-size: 18px;
+  }
+
+  .search-box {
+    max-width: 620px;
+    height: 64px;
+  }
+
+  .search-box button {
+    width: 64px;
+    height: 64px;
+  }
+
+  .hero-visual {
+    min-height: 610px;
+  }
+
+  .visual-background {
+    max-width: 680px;
+    height: 580px;
+  }
+
+  .main-book {
+    width: 285px;
+    max-height: 410px;
+  }
+
+  .small-book {
+    width: 190px;
+    max-height: 285px;
+  }
+}
+
 @media (max-width: 850px) {
   .hero {
     grid-template-columns: 1fr;
@@ -410,6 +525,88 @@ import { Search, BookOpen, Tag, ShieldCheck } from "lucide-vue-next";
   .platform-small {
     width: 135px;
     right: -15px;
+  }
+}
+
+.category-section {
+  background: var(--white);
+}
+
+.section-heading {
+  margin-bottom: 35px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 30px;
+}
+
+.section-label {
+  display: inline-block;
+  margin-bottom: 10px;
+  color: var(--primary);
+  font-size: 13px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1.3px;
+}
+
+.section-heading h2 {
+  color: #102650;
+  font-size: clamp(30px, 4vw, 43px);
+  line-height: 1.2;
+}
+
+.section-heading p {
+  max-width: 570px;
+  margin-top: 12px;
+  color: var(--text-light);
+  line-height: 1.7;
+}
+
+.view-all-link {
+  flex-shrink: 0;
+  color: var(--primary);
+  font-size: 14px;
+  font-weight: 600;
+  transition: var(--transition);
+}
+
+.view-all-link:hover {
+  color: var(--primary-dark);
+  transform: translateX(4px);
+}
+
+.category-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 24px;
+}
+
+@media (min-width: 1600px) {
+  .category-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 30px;
+  }
+
+  .category-card {
+    min-height: 240px;
+  }
+}
+
+@media (max-width: 850px) {
+  .category-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .section-heading {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .category-grid {
+    grid-template-columns: 1fr;
   }
 }
 </style>
