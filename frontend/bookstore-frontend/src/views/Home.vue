@@ -2,7 +2,7 @@
 import { Search, BookOpen, Tag, ShieldCheck } from "lucide-vue-next";
 
 import CategoryCard from "../components/cards/CategoryCard.vue";
-
+import BookCard from "../components/cards/BookCard.vue";
 // import vanHocImage from "../assets/images/categories/van-hoc.jpg";
 // import kinhTeImage from "../assets/images/categories/kinh-te.jpg";
 // import kyNangImage from "../assets/images/categories/ky-nang.jpg";
@@ -34,6 +34,75 @@ const categories = [
   {
     title: "Tâm lý",
     image: "https://images.unsplash.com/photo-1512820790803-83ca734da794",
+  },
+];
+
+const bestSellerBooks = [
+  {
+    id: 1,
+    title: "Nhà Giả Kim",
+    author: "Paulo Coelho",
+    price: 79000,
+    oldPrice: 99000,
+    discount: 20,
+    rating: 4.8,
+    image:
+      "https://images.unsplash.com/photo-1544947950-fa07a98d237f?w=700&auto=format&fit=crop&q=80",
+  },
+  {
+    id: 2,
+    title: "Đắc Nhân Tâm",
+    author: "Dale Carnegie",
+    price: 86000,
+    oldPrice: 108000,
+    discount: 20,
+    rating: 4.9,
+    image:
+      "https://images.unsplash.com/photo-1543002588-bfa74002ed7e?w=700&auto=format&fit=crop&q=80",
+  },
+  {
+    id: 3,
+    title: "Tuổi Trẻ Đáng Giá Bao Nhiêu",
+    author: "Rosie Nguyễn",
+    price: 72000,
+    oldPrice: 90000,
+    discount: 20,
+    rating: 4.7,
+    image:
+      "https://images.unsplash.com/photo-1511108690759-009324a90311?w=700&auto=format&fit=crop&q=80",
+  },
+  {
+    id: 4,
+    title: "Cây Cam Ngọt Của Tôi",
+    author: "José Mauro de Vasconcelos",
+    price: 88000,
+    oldPrice: 110000,
+    discount: 20,
+    rating: 4.9,
+    image:
+      "https://images.unsplash.com/photo-1516979187457-637abb4f9353?w=700&auto=format&fit=crop&q=80",
+  },
+  {
+    id: 5,
+    title: "Atomic Habits",
+    author: "James Clear",
+    price: 145000,
+    oldPrice: 181000,
+    discount: 20,
+    rating: 4.8,
+    image:
+      "https://images.unsplash.com/photo-1524995997946-a1c2e315a42f?w=700&auto=format&fit=crop&q=80",
+  },
+  {
+    id: 6,
+    title: "Tâm Lý Học Về Tiền",
+    author: "Morgan Housel",
+    price: 119000,
+    oldPrice: 149000,
+    discount: 20,
+    rating: 4.7,
+    image:
+      "https://images.unsplash.com/photo-1495446815901-a7297e633e8d?w=700&auto=format&fit=crop&q=80",
   },
 ];
 </script>
@@ -113,7 +182,7 @@ const categories = [
         </div>
       </div>
     </section>
-    <!--  -->
+    <!-- Danh mục  -->
     <section id="categories" class="category-section section">
       <div class="container">
         <div class="section-heading">
@@ -140,6 +209,45 @@ const categories = [
             :title="category.title"
             :image="category.image"
           />
+        </div>
+      </div>
+    </section>
+    <!--  -->
+    <section id="bestsellers" class="bestseller-section">
+      <div class="container">
+        <div class="section-heading">
+          <div>
+            <span class="section-label">Được yêu thích nhất</span>
+            <h2>Sách bán chạy trong tháng</h2>
+          </div>
+
+          <RouterLink to="/books" class="view-all-link"> Xem thêm </RouterLink>
+        </div>
+
+        <div class="bestseller-layout">
+          <div class="book-grid">
+            <BookCard
+              v-for="book in bestSellerBooks"
+              :key="book.id"
+              :book="book"
+            />
+          </div>
+
+          <aside class="promotion-card">
+            <div class="promotion-card__content">
+              <span>Ưu đãi trong tuần</span>
+
+              <h3>Giảm 20% sách bán chạy</h3>
+
+              <p>
+                Sở hữu những cuốn sách được yêu thích nhất với mức giá hấp dẫn.
+              </p>
+
+              <RouterLink to="/books" class="promotion-btn">
+                Nhận ưu đãi
+              </RouterLink>
+            </div>
+          </aside>
         </div>
       </div>
     </section>
@@ -607,6 +715,133 @@ const categories = [
 
   .category-grid {
     grid-template-columns: 1fr;
+  }
+}
+
+.bestseller-section {
+  padding: 90px 0;
+  background: #fbfcff;
+}
+
+.view-all-link {
+  padding: 10px 18px;
+  color: var(--primary);
+  border: 1px solid #cfdcff;
+  border-radius: 9px;
+  font-size: 14px;
+  font-weight: 600;
+  transition: var(--transition);
+}
+
+.view-all-link:hover {
+  color: white;
+  background: var(--primary);
+  border-color: var(--primary);
+}
+
+.bestseller-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 330px;
+  gap: 28px;
+  align-items: stretch;
+}
+
+.book-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 24px;
+}
+
+.promotion-card {
+  min-height: 100%;
+  overflow: hidden;
+  display: flex;
+  align-items: flex-end;
+  padding: 36px;
+  color: white;
+  background:
+    linear-gradient(to top, rgba(32, 82, 211, 0.92), rgba(91, 124, 250, 0.68)),
+    url("https://images.unsplash.com/photo-1526243741027-444d633d7365?w=900&auto=format&fit=crop&q=85")
+      center/cover;
+  border-radius: 24px;
+  box-shadow: var(--shadow-md);
+}
+
+.promotion-card__content span {
+  display: inline-block;
+  margin-bottom: 12px;
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.promotion-card h3 {
+  max-width: 260px;
+  font-size: 34px;
+  line-height: 1.2;
+}
+
+.promotion-card p {
+  margin-top: 15px;
+  color: rgba(255, 255, 255, 0.86);
+  line-height: 1.7;
+}
+
+.promotion-btn {
+  display: inline-flex;
+  margin-top: 24px;
+  padding: 13px 22px;
+  color: var(--primary);
+  background: white;
+  border-radius: 999px;
+  font-weight: 600;
+  transition: var(--transition);
+}
+
+.promotion-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 25px rgba(17, 44, 103, 0.22);
+}
+
+@media (min-width: 1800px) {
+  .bestseller-layout {
+    grid-template-columns: minmax(0, 1fr) 380px;
+    gap: 32px;
+  }
+
+  .book-grid {
+    gap: 28px;
+  }
+}
+
+@media (max-width: 1200px) {
+  .bestseller-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .promotion-card {
+    min-height: 420px;
+  }
+}
+
+@media (max-width: 900px) {
+  .book-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 560px) {
+  .book-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .promotion-card {
+    min-height: 360px;
+    padding: 28px;
+  }
+
+  .promotion-card h3 {
+    font-size: 29px;
   }
 }
 </style>
