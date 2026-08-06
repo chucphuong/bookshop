@@ -1,0 +1,19 @@
+# Bỏ qua thư mục thư viện nặng của Node.js ở cả 2 nơi
+node_modules/
+**/node_modules/
+
+# Bỏ qua thư mục build sản phẩm
+dist/
+build/
+**/dist/
+**/build/
+
+# Bỏ qua các file nén rác hoặc file cấu hình cá nhân
+*.zip
+.vscode/
+**/.vscode/
+
+# Bỏ qua file môi trường chứa thông tin bảo mật (mật khẩu, API key)
+.env
+.env.local
+**/.env

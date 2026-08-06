@@ -1,0 +1,11 @@
+.hover {
+
+    transition: var(--transition);
+
+}
+
+.hover:hover {
+
+    transform: translateY(-6px);
+
+}
