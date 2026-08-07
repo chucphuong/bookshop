@@ -3,6 +3,7 @@ import { Search, BookOpen, Tag, ShieldCheck } from "lucide-vue-next";
 
 import CategoryCard from "../components/cards/CategoryCard.vue";
 import BookCard from "../components/cards/BookCard.vue";
+import TrendingBookItem from "../components/cards/TrendingBookItem.vue";
 // import vanHocImage from "../assets/images/categories/van-hoc.jpg";
 // import kinhTeImage from "../assets/images/categories/kinh-te.jpg";
 // import kyNangImage from "../assets/images/categories/ky-nang.jpg";
@@ -103,6 +104,63 @@ const bestSellerBooks = [
     rating: 4.7,
     image:
       "https://images.unsplash.com/photo-1495446815901-a7297e633e8d?w=700&auto=format&fit=crop&q=80",
+  },
+];
+
+const trendingBooks = [
+  {
+    id: 1,
+    title: "Cho Tôi Xin Một Vé Đi Tuổi Thơ",
+    author: "Nguyễn Nhật Ánh",
+    price: 85000,
+    rating: 4.9,
+    image:
+      "https://images.unsplash.com/photo-1544947950-fa07a98d237f?w=400&auto=format&fit=crop&q=80",
+  },
+  {
+    id: 2,
+    title: "Tôi Thấy Hoa Vàng Trên Cỏ Xanh",
+    author: "Nguyễn Nhật Ánh",
+    price: 92000,
+    rating: 4.8,
+    image:
+      "https://images.unsplash.com/photo-1511108690759-009324a90311?w=400&auto=format&fit=crop&q=80",
+  },
+  {
+    id: 3,
+    title: "Muôn Kiếp Nhân Sinh",
+    author: "Nguyên Phong",
+    price: 129000,
+    rating: 4.7,
+    image:
+      "https://images.unsplash.com/photo-1543002588-bfa74002ed7e?w=400&auto=format&fit=crop&q=80",
+  },
+  {
+    id: 4,
+    title: "Không Diệt Không Sinh Đừng Sợ Hãi",
+    author: "Thích Nhất Hạnh",
+    price: 99000,
+    rating: 4.9,
+    image:
+      "https://images.unsplash.com/photo-1495446815901-a7297e633e8d?w=400&auto=format&fit=crop&q=80",
+  },
+  {
+    id: 5,
+    title: "Đi Tìm Lẽ Sống",
+    author: "Viktor E. Frankl",
+    price: 88000,
+    rating: 4.8,
+    image:
+      "https://images.unsplash.com/photo-1516979187457-637abb4f9353?w=400&auto=format&fit=crop&q=80",
+  },
+  {
+    id: 6,
+    title: "Hiểu Về Trái Tim",
+    author: "Minh Niệm",
+    price: 118000,
+    rating: 4.9,
+    image:
+      "https://images.unsplash.com/photo-1524995997946-a1c2e315a42f?w=400&auto=format&fit=crop&q=80",
   },
 ];
 </script>
@@ -213,6 +271,33 @@ const bestSellerBooks = [
       </div>
     </section>
     <!--  -->
+    <section class="trending-section">
+      <div class="container">
+        <div class="trending-box">
+          <div class="trending-heading">
+            <div>
+              <span class="section-label"> Xu hướng đọc sách </span>
+
+              <h2>Sách đang được quan tâm</h2>
+            </div>
+
+            <RouterLink to="/books" class="view-all-link">
+              Xem tất cả
+            </RouterLink>
+          </div>
+
+          <div class="trending-grid">
+            <TrendingBookItem
+              v-for="(book, index) in trendingBooks"
+              :key="book.id"
+              :book="book"
+              :rank="index + 1"
+            />
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- Sách bán chạy  -->
     <section id="bestsellers" class="bestseller-section">
       <div class="container">
         <div class="section-heading">
@@ -842,6 +927,107 @@ const bestSellerBooks = [
 
   .promotion-card h3 {
     font-size: 29px;
+  }
+}
+
+.trending-section {
+  padding: 30px 0 80px;
+  background: white;
+}
+
+.trending-box {
+  padding: 34px;
+  background:
+    radial-gradient(circle at 90% 0, rgba(91, 124, 250, 0.13), transparent 30%),
+    linear-gradient(135deg, #f5f8ff, #eef4ff);
+  border: 1px solid #e4ebfc;
+  border-radius: 24px;
+}
+
+.trending-heading {
+  margin-bottom: 24px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 25px;
+}
+
+.trending-heading h2 {
+  color: #142b55;
+  font-size: clamp(27px, 3vw, 39px);
+  line-height: 1.2;
+}
+
+.trending-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0.52);
+  border: 1px solid #e3eafb;
+  border-radius: 16px;
+}
+
+.trending-grid > :nth-child(3n) {
+  border-right: none;
+}
+
+.trending-grid > :nth-child(-n + 3) {
+  border-bottom: 1px solid #dde6fb;
+}
+
+@media (min-width: 1800px) {
+  .trending-box {
+    padding: 42px;
+  }
+
+  .trending-grid {
+    gap: 0;
+  }
+}
+
+@media (max-width: 1050px) {
+  .trending-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .trending-grid > * {
+    border-bottom: 1px solid #dde6fb;
+  }
+
+  .trending-grid > :nth-child(2n) {
+    border-right: none;
+  }
+
+  .trending-grid > :nth-last-child(-n + 2) {
+    border-bottom: none;
+  }
+}
+
+@media (max-width: 650px) {
+  .trending-section {
+    padding-bottom: 60px;
+  }
+
+  .trending-box {
+    padding: 22px 16px;
+  }
+
+  .trending-heading {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .trending-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .trending-grid > * {
+    border-right: none;
+    border-bottom: 1px solid #dde6fb;
+  }
+
+  .trending-grid > :last-child {
+    border-bottom: none;
   }
 }
 </style>
