@@ -1,5 +1,16 @@
 <script setup>
-import { Search, BookOpen, Tag, ShieldCheck } from "lucide-vue-next";
+import {
+  Search,
+  BookOpen,
+  Tag,
+  ShieldCheck,
+  ChevronLeft,
+  ChevronRight,
+  CreditCard,
+  Truck,
+  BadgeCheck,
+  LibraryBig,
+} from "lucide-vue-next";
 
 import CategoryCard from "../components/cards/CategoryCard.vue";
 import BookCard from "../components/cards/BookCard.vue";
@@ -161,6 +172,30 @@ const trendingBooks = [
     rating: 4.9,
     image:
       "https://images.unsplash.com/photo-1524995997946-a1c2e315a42f?w=400&auto=format&fit=crop&q=80",
+  },
+];
+
+const advantages = [
+  {
+    title: "Đa dạng đầu sách",
+    description:
+      "Hàng nghìn đầu sách thuộc nhiều thể loại, phù hợp với mọi độ tuổi.",
+    icon: LibraryBig,
+  },
+  {
+    title: "Thanh toán thuận tiện",
+    description: "Hỗ trợ nhiều phương thức thanh toán an toàn và linh hoạt.",
+    icon: CreditCard,
+  },
+  {
+    title: "Sách chính hãng",
+    description: "Cam kết sách có nguồn gốc rõ ràng và đảm bảo chất lượng.",
+    icon: BadgeCheck,
+  },
+  {
+    title: "Giao hàng nhanh chóng",
+    description: "Đóng gói cẩn thận và giao hàng tận nơi trên toàn quốc.",
+    icon: Truck,
   },
 ];
 </script>
@@ -333,6 +368,43 @@ const trendingBooks = [
               </RouterLink>
             </div>
           </aside>
+        </div>
+      </div>
+    </section>
+    <!--  -->
+    <section class="advantages-section">
+      <div class="container advantages-layout">
+        <div class="advantages-intro">
+          <span class="section-label">BookStore</span>
+
+          <h2>Vì sao nên chọn chúng tôi?</h2>
+
+          <p>
+            BookStore mang đến trải nghiệm mua sách thuận tiện, an toàn và phù
+            hợp với độc giả Việt Nam.
+          </p>
+
+          <RouterLink to="/books" class="learn-more-link">
+            Khám phá ngay
+          </RouterLink>
+        </div>
+
+        <div class="advantages-grid">
+          <article
+            v-for="advantage in advantages"
+            :key="advantage.title"
+            class="advantage-card"
+          >
+            <div class="advantage-icon">
+              <component :is="advantage.icon" :size="30" />
+            </div>
+
+            <div>
+              <h3>{{ advantage.title }}</h3>
+
+              <p>{{ advantage.description }}</p>
+            </div>
+          </article>
         </div>
       </div>
     </section>
@@ -1028,6 +1100,134 @@ const trendingBooks = [
 
   .trending-grid > :last-child {
     border-bottom: none;
+  }
+}
+
+.advantages-section {
+  padding: 90px 0;
+  background: white;
+}
+
+.advantages-layout {
+  display: grid;
+  grid-template-columns: 280px minmax(0, 1fr);
+  align-items: center;
+  gap: 52px;
+}
+
+.advantages-intro h2 {
+  margin-top: 8px;
+  color: #142b55;
+  font-size: clamp(32px, 3vw, 43px);
+  line-height: 1.2;
+}
+
+.advantages-intro p {
+  margin-top: 16px;
+  color: var(--text-light);
+  line-height: 1.75;
+}
+
+.learn-more-link {
+  display: inline-flex;
+  margin-top: 22px;
+  color: var(--primary);
+  font-size: 14px;
+  font-weight: 600;
+  transition: var(--transition);
+}
+
+.learn-more-link:hover {
+  color: var(--primary-dark);
+  transform: translateX(5px);
+}
+
+.advantages-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 18px;
+}
+
+.advantage-card {
+  min-height: 205px;
+  padding: 28px 24px;
+  background: linear-gradient(
+    145deg,
+    rgba(245, 248, 255, 0.96),
+    rgba(234, 241, 255, 0.92)
+  );
+  border: 1px solid #e4ebfc;
+  border-radius: 22px;
+  transition: var(--transition);
+}
+
+.advantage-card:hover {
+  transform: translateY(-7px);
+  box-shadow: var(--shadow-md);
+}
+
+.advantage-icon {
+  width: 58px;
+  height: 58px;
+  display: grid;
+  place-items: center;
+  margin-bottom: 22px;
+  color: var(--primary);
+  background: white;
+  border-radius: 17px;
+  box-shadow: 0 8px 20px rgba(73, 105, 182, 0.12);
+}
+
+.advantage-card h3 {
+  color: #183461;
+  font-size: 17px;
+  line-height: 1.35;
+}
+
+.advantage-card p {
+  margin-top: 10px;
+  color: var(--text-light);
+  font-size: 12px;
+  line-height: 1.65;
+}
+
+@media (min-width: 1800px) {
+  .advantages-layout {
+    grid-template-columns: 320px minmax(0, 1fr);
+    gap: 70px;
+  }
+
+  .advantage-card {
+    min-height: 230px;
+    padding: 32px 28px;
+  }
+}
+
+@media (max-width: 1150px) {
+  .advantages-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .advantages-intro {
+    max-width: 650px;
+  }
+
+  .advantages-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 620px) {
+  .advantages-section {
+    padding: 65px 0;
+  }
+
+  .advantages-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .advantage-card {
+    min-height: auto;
   }
 }
 </style>
